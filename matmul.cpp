@@ -7,9 +7,9 @@
 #include <cstring>
 
 
-static const int TilingFactorM = 2048;
+static const int TilingFactorM = 24;
 static const int TilingFactorN = 1024;
-static const int TilingFactorK = 16;
+static const int TilingFactorK = 1024;
 
 template <typename T>
 Matrix<T> Matrix<T>::operator*(const Matrix<T> &other) {
@@ -114,7 +114,7 @@ Matrix<T> OpenMP(const Matrix<T> &A, const Matrix<T> &B){
     unsigned int Cols = B.getCols();
     unsigned int Inner = A.getCols();
 
-    #pragma omp parallel for shared(pA, pB, pC, Rows, Cols, Inner, TilingFactorM, TilingFactorN, TilingFactorK) default(none) collapse(2) num_threads(12)
+    #pragma omp parallel for shared(pA, pB, pC, Rows, Cols, Inner, TilingFactorM, TilingFactorN, TilingFactorK) default(none) collapse(2) num_threads(16)
     for (unsigned int  rowTile = 0; rowTile < Rows; rowTile += TilingFactorM) {
         unsigned int  rowTileEnd = std::min(Rows, rowTile + TilingFactorM);
         for (unsigned int  colTile = 0; colTile < Cols; colTile += TilingFactorN) {

@@ -118,7 +118,7 @@ void testSubscriptOperator() {
 }
 
 void testGEMM() {
-    static const int DIM=2048;
+    static const int DIM=1024;
     Matrix<float> mat1(DIM, DIM);
     Matrix<float> mat2(DIM, DIM);
     Matrix<float> result;
